@@ -1,0 +1,9 @@
+# File: var-live.yml
+variables:
+  baseURL: 'https://capstone-web-api-2024-ss-g2-live.azurewebsites.net/api'
+  ConnectionStrings.DefaultConnection: 'Server=tcp:database-capstone.database.windows.net,1433;Initial Catalog=capstone-2024-ss-g2-live;Persist Security Info=False;User ID=capstone;Password=SchoolOfContinuingEducation!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
+  DefaultConnection: 'Server=tcp:database-capstone.database.windows.net,1433;Initial Catalog=capstone-2024-ss-g2-live;Persist Security Info=False;User ID=capstone;Password=SchoolOfContinuingEducation!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
+  deployWeb: 'capstone-web-2024-ss-g2-live'
+  deployWebApi: 'capstone-web-api-2024-ss-g2-live'
+  scDatabase: 'capstone-database-sc'
+  scWebApps: 'capstone-2024-ss-g2-sc'

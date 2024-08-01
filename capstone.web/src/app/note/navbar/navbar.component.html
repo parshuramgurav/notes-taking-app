@@ -1,0 +1,42 @@
+<section class="main-container">
+    <div class="navbar">
+        <div class="first-col">
+            <div class="pic-container H" (click)="closeSideBar()">
+                <img src="./assets/images/svg/menu.svg" class="menu-icon" alt="menu">
+            </div>
+            <div class="keep-img">
+                <img src="./assets/images/logo.png" width="35" srcset="./assets/images/logo.png 1x, ./assets/images/logo.png 2x" alt="Synergy Computing">
+            </div>
+            <div>
+                <span class="text">Synergy Computing</span>
+            </div>
+        </div>
+        <div class="sec-col">
+            <div class="form-container">
+                <form #form23zSaZ class="form">
+                    <div class="input-container">
+                        <input class="input" autocomplete="off" placeholder="Search" value="" type="text">
+                    </div>
+                    <button class="btn" aria-label="Clear search" type="button">
+                        <img class="pic H d-none" src="./assets/images/svg/x-btn.svg" alt="x-btn">
+                    </button>
+                    <button class="btn left" aria-label="Clear search" type="button">
+                        <img class="pic H" src="./assets/images/svg/search.svg" alt="x-btn">
+                    </button>
+                </form>
+            </div>
+            <div class="btns-container">
+                <div class="refresh H pop" data-pop="Refresh" (click)="refresh()"></div>
+                <div class="view H pop" data-pop="List view" (click)="view()"></div>
+                <div class="Username H pop" [attr.data-pop]="username" (click)="toggleMenu()">{{ username.charAt(0).toUpperCase() }}</div>
+                <div *ngIf="isMenuOpen" class="dropdown-menus">
+                    <div class="dropdown-items" (click)="logout()">
+                        <img src="./assets/images/svg/logout.svg" alt="Logout" class="dropdown-icon">
+                        <span class="dropdown-text"> Logout</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>

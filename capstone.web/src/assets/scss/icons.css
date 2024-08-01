@@ -1,0 +1,112 @@
+.icons-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 4px 0;
+    position: relative;
+    justify-content: space-between;
+}
+
+.icons-container.min {
+    justify-content: center;
+}
+
+.icons-container.min .icons>div {
+    margin: 0 2px;
+}
+
+.icons-container .icons {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.icons-container .icons .alarm,
+.icons-container .icons .colab,
+.icons-container .icons .color,
+.icons-container .icons .image,
+.icons-container .icons .archive,
+.icons-container .icons .unarchive,
+.icons-container .icons .more,
+.icons-container .icons .undo,
+.icons-container .icons .delete,
+.icons-container .icons .restore,
+.icons-container .icons .undo.r {
+    opacity: 0.71;
+    height: 34px;
+    margin: 0 8px;
+    width: 34px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    position: relative;
+}
+
+.icons-container .icons .alarm {
+    background-image: url(/assets/images/svg/alarm.svg);
+}
+
+.icons-container .icons .colab {
+    background-image: url(/assets/images/svg/col.svg);
+}
+
+.icons-container .icons .color {
+    background-image: url(/assets/images/svg/bg.svg);
+}
+
+.icons-container .icons .image {
+    background-image: url(/assets/images/svg/image.svg);
+}
+
+.icons-container .icons .archive {
+    background-image: url(/assets/images/svg/archive2.svg);
+}
+
+.icons-container .icons .unarchive {
+    background-image: url(/assets/images/svg/unarchive.svg);
+}
+
+.icons-container .icons .more {
+    background-image: url(/assets/images/svg/more.svg);
+}
+
+.icons-container .icons .undo {
+    background-image: url(/assets/images/svg/undo.svg);
+}
+
+.icons-container .icons .delete {
+    background-image: url(/assets/images/svg/delete.svg);
+}
+
+.icons-container .icons .restore {
+    background-image: url(/assets/images/svg/restore.svg);
+}
+
+.icons-container .icons .undo.r {
+    transform: scaleX(-1);
+}
+
+.icons-container .icons .disabled {
+    cursor: not-allowed !important;
+    opacity: 0.25 !important;
+}
+
+.pin-icon {
+    opacity: 0.54;
+    height: 32px;
+    width: 32px;
+    right: 14px;
+    top: 8px;
+    position: absolute;
+    background-image: url(/assets/images/svg/pin.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.pin-icon.pinned {
+    background-image: url(/assets/images/svg/pin-pinned.svg) !important;
+}
+
+.pin-icon:hover {
+    opacity: 0.87 !important;
+}

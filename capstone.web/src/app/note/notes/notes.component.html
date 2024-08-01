@@ -1,0 +1,129 @@
+<section>
+    <section #mainContainer class="main-container">
+        <div class="pb-80" *ngIf="(Shared.note.pinned | notesTools:currentPageName).length">
+            <p #title _title>pinned</p>
+            <ng-container [ngTemplateOutlet]="noteTemplate" [ngTemplateOutletContext]="{notes:Shared.note.pinned}">
+            </ng-container>
+        </div>
+        <div *ngIf="(Shared.note.unpinned | notesTools:currentPageName).length">
+            <p #title _title>other</p>
+            <ng-container [ngTemplateOutlet]="noteTemplate" [ngTemplateOutletContext]="{notes:Shared.note.unpinned}">
+            </ng-container>
+        </div>
+    </section>
+</section>
+
+<section *ngIf="(Shared.note.all | notesTools:currentPageName).length<0">
+    <div class="no-notes">
+        <div class="image"></div>
+        <div>
+            <span class="text">Notes you {{ currentPage.trash?'trash':'add'}}
+                appear here</span>
+        </div>
+    </div>
+</section>
+
+<div #modalContainer class="modal-container">
+    <div #modal class="modal d-block">
+        <app-input [noteToEdit]="clickedNoteData" [isEditing]="true" *ngIf="modalContainer.style.display === 'block'">
+        </app-input>
+    </div>
+</div>
+<ng-template #noteTemplate let-notes="notes">
+    <div #noteEl [class.mx-auto]="Shared.noteViewType.value === 'list'">
+        <ng-container *ngFor="let note of notes | notesTools:currentPageName; trackBy: trackBy">
+
+            <div #noteEL class="note-container">
+                <div class="note-main" [ngStyle]="{
+                    'background-color': (note.bgColor && note.bgColor.trim() !== '') ? note.bgColor : '#fff', 
+                    'border-color': '#003049', 
+                    'background-image': note.bgImage
+               }">
+
+                    <div (mouseup)="openModal(noteEL, note)">
+                        @if(note.noteTitle){
+                        <div class="title">
+                            <span [innerHTML]="note.noteTitle"></span>
+                        </div>
+                        } @if(!note.noteTitle){
+                        <div class="title">
+                            <span [innerHTML]="note.noteBody"></span>
+                        </div>
+                        }
+                    </div>
+                    <div class="labels-container min">
+                        <ng-container *ngFor="let label of note.labels">
+                            <div class="label-container" *ngIf="label.added">
+                                <div class="label">
+                                    <span>{{ label.name }}</span>
+                                    <div class="cancel-icon pop" data-pop="Remove Label" (click)="removeLabel(note, label)"></div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="icons-container min" *ngIf="!note.trashed; else trashed">
+                        <div class="icons">
+                            <div #colorMenuTtBtn data-toolTipType="colorMenu" data-pop="Background Options" (click)="openTooltip(colorMenuTtBtn,colorMenuTt,note.id!)" class="color H pop">
+                            </div>
+                            <div data-toolTipType="moreMenu" #moreMenuTtBtn (click)="openTooltip(moreMenuTtBtn,moreMenuTt,note.id!)" class="more H pop" data-pop="More">
+                            </div>
+                        </div>
+                    </div>
+                    <ng-template #trashed>
+                        <div class="icons-container min">
+                            <div class="icons">
+                                <div class="delete H pop" data-pop="Delete forever" (click)="removeNote(note.id!)">
+                                </div>
+                                <div class="restore H pop" data-pop="Restore" (click)="restoreNote(note.id!)"></div>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <div class="check-icon"></div>
+                    <div (click)="togglePin(note.id!,note.pinned)" [class.pinned]="note.pinned" class="pin-icon H pop" [attr.data-pop]="!note.pinned ? 'Pin note':'Unpin note' "></div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</ng-template>
+
+<div #moreMenuTt data-tooltip="true" data-is-tooltip-open="false" class="moreMenu">
+    <div (click)="moreMenu(moreMenuTt).trash()">
+        Delete note
+    </div>
+    <div #labelMenuBtn (click)="moreMenu(moreMenuTt).openLabelMenu(labelMenuTt)">
+        Add Label
+    </div>
+</div>
+<div #colorMenuTt data-tooltip="true" data-is-tooltip-open="false" class="colorMenu">
+    <div class="first-row">
+        <ng-container>
+            @for(color of bgColors; track $index){
+            <div [attr.data-bg-color]="color[0]" [style.background-color]="color[1]" (click)="colorMenu.bgColor(color[1])" [class.nocolor]="color[1] === ''">
+            </div>
+            }
+
+        </ng-container>
+    </div>
+    <div class="second-row">
+        <ng-container>
+            @for(image of bgImages;track $index){
+            <div [attr.data-bg-image]="image[0]" [style.background-image]="image[1] | ph" (click)="colorMenu.bgImage(image[1])" [class.noimage]="image[1] === ''">
+            </div>
+            }
+
+        </ng-container>
+    </div>
+</div>
+<div #labelMenuTt data-tooltip="true" data-is-tooltip-open="false" class="labelMenu">
+    <div class="title">Label note</div>
+    <div class="search">
+        <input type="text" maxlength="50" placeholder="Enter label name">
+        <div class="search-icon"></div>
+    </div>
+    <div class="label-list-container">
+        <div class="label-list" *ngFor="let label of labels" (click)="labelMenu(label)">
+            <div [class.done]='label.added' class="check-icon"></div>
+            <div class="label-name">{{label.name}}</div>
+        </div>
+    </div>
+</div>
